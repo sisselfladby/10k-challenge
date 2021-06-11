@@ -1,57 +1,29 @@
-console.clear();
+export function initialize(rootEL, initialCount, onChange) {
+  const containerEl = rootEL.querySelector('.number-container');
+
+  let count = initialCount
+
+  const handleUpdate = (newCount) => {
+    if (newCount < 0) return
 
 
-function AnimatedNumber(el, value){
-  el.className = 'flip-clock__piece';
-  el.innerHTML = '<b class="flip-clock__card card"><b class="card__top"></b><b class="card__bottom"></b><b class="card__back"><b class="card__bottom"></b></b></b>';
+    const html = [...String(newCount)].map((num) => 
+      `<div class="number-container__number">${num}</div>`
+    ).join('')
 
-  this.el = el;
+    count = newCount
+    containerEl.innerHTML = html
 
-  var top = el.querySelector('.card__top'),
-      bottom = el.querySelector('.card__bottom'),
-      back = el.querySelector('.card__back'),
-      backBottom = el.querySelector('.card__back .card__bottom');
-
-  top.innerText = value;
-  back.setAttribute('data-value', value);
-  bottom.setAttribute('data-value', value);
-  backBottom.setAttribute('data-value', value);
-
-  this.update = function(val){
-    if (val === this.currentValue) return
-    
-    if ( this.currentValue >= 0 ) {
-      back.setAttribute('data-value', this.currentValue);
-      bottom.setAttribute('data-value', this.currentValue);
-    }
-    this.currentValue = val;
-    top.innerText = this.currentValue;
-    backBottom.setAttribute('data-value', this.currentValue);
-
-    this.el.classList.remove('flip');
-    void this.el.offsetWidth;
-    this.el.classList.add('flip');
+    setTimeout(() => onChange(newCount), 0)
   }
-}
 
-
-export function hydrate(rootEL) {
-  const numberEls = rootEL.querySelectorAll('.number-container__number');
-  const animatedNumbers = [...numberEls].map((el) => {
-    const num = Number(el.innerText)
-    return new AnimatedNumber(el, num)
-  })
-
-  let val = 5
   rootEL.querySelector('#subtract').addEventListener('click', (event) => {
     event.preventDefault();
-    val--
-    animatedNumbers[0].update(val)
+    handleUpdate(count - 1)
   })
   
   rootEL.querySelector('#add').addEventListener('click', (event) => {
     event.preventDefault();
-    val++
-    animatedNumbers[0].update(val)
+    handleUpdate(count + 1)
   })
 }
