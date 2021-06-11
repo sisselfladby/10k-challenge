@@ -1,0 +1,26 @@
+.speech__container {
+    padding: 1rem 0;
+}
+
+.speech__button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px blue;
+}
+
+.speech__button {
+    border-radius: 75%;
+    background-color: white;
+    color: #808080;
+    text-align: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+
+    transition: transform 0.25s;
+}
+
+.speech__button:hover,
+.speech__button:focus {
+    /* background-color: #FBAB7E; */
+    transform: scale(1.2)
+}
+

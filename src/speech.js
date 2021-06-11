@@ -5,6 +5,7 @@ const button = document.createElement("button")
 button.type="button"
 button.id = "speak"
 button.innerText = "Rop ut"
+button.className = "speech__button"
 buttonContainer.appendChild(button)
 
 function speakNumber() {

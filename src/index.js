@@ -22,8 +22,8 @@ Promise.all([
   });
 
 if (window.speechSynthesis) {
-  const speechModule = await import('/src/speech.js')
-  console.log("hei")
-  console.log(window.speechSynthesis)
-  console.log(window.speechSynthesis.getVoices())
+  Promise.all([
+    import('/src/speech.js'),
+    importCSS('./src/speech.css')
+  ])
 }

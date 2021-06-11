@@ -18,7 +18,7 @@ body {
   background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
 }
 
-main {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +34,7 @@ main {
   height: 6rem;
   perspective-origin: 50% 50%;
   perspective: 18rem;
-  background-color: white;  
+  background-color: white;
   border-radius: 0.25rem;
   box-shadow: 0 0.75rem 0.75rem -0.75rem grey;
 
@@ -43,7 +43,7 @@ main {
   line-height: 6rem;
 }
 
-.number-container__number + .number-container__number { 
+.number-container__number + .number-container__number {
   margin-left: 0.5rem;
 }
 
