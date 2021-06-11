@@ -11,7 +11,9 @@ app
 
 
 function serveHtml(count) {
-    return (`
+  const number = Number(count) || 1
+
+  return (`
 <!doctype html>
 
 <html lang="no">
@@ -23,18 +25,18 @@ function serveHtml(count) {
 
 <body>
 <main>
-  <a class="control" href="/${count-1}">
+  <a class="control" href="/${number - 1}">
     -
     <span class="visually-hidden">Trekk fra</span>
   </a>
 
   <div class="number-container">
-    ${[...count].map((num) => 
+    ${[...String(number)].map((num) => 
       `<div class="number-container__number">${num}</div>`
     ).join('')}
   </div>
 
-  <a class="control" href="/${count+1}">
+  <a class="control" href="/${number + 1}">
     +
     <span class="visually-hidden">Legg til</span>
   </a>
