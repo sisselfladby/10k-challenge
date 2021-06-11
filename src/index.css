@@ -1,3 +1,13 @@
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 body {
   display: flex;
   min-height: 100vh;
@@ -8,9 +18,18 @@ body {
   background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
 }
 
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .number-container {
-  position: relative;
+  display: flex;
+  margin: 0 2rem;
+}
+
+.number-container__number {
   width: 6rem;
   height: 6rem;
   perspective-origin: 50% 50%;
@@ -24,6 +43,27 @@ body {
   line-height: 6rem;
 }
 
-.number-container + .number-container { 
+.number-container__number + .number-container__number { 
   margin-left: 0.5rem;
+}
+
+.control {
+  border-radius: 50%;
+  display: block;
+  height: 2.5rem;
+  width: 2.5rem;
+  line-height: 2.5rem;
+  background-color: white;
+  color: #808080;
+  text-align: center;
+  font-size: 1.5rem;
+  text-decoration: none;
+
+  transition: transform 0.25s;
+}
+
+.control:hover,
+.control:focus {
+  /* background-color: #FBAB7E; */
+  transform: scale(1.2)
 }

@@ -21,12 +21,23 @@ function serveHtml(count) {
 </head>
 
 <body>
-  <span>${count}</span>
-  <div class="number-container">1</div>
-  <div class="number-container">2</div>
-  <div class="number-container">3</div>
-  <div class="number-container">4</div>
-  <div class="number-container">5</div>
+<main>
+  <a class="control" href="/${count-1}">
+    -
+    <span class="visually-hidden">Trekk fra</span>
+  </a>
+
+  <div class="number-container">
+    ${[...count].map((num) => 
+      `<div class="number-container__number">${num}</div>`
+    ).join('')}
+  </div>
+
+  <a class="control" href="/${count+1}">
+    +
+    <span class="visually-hidden">Legg til</span>
+  </a>
+  </main>
   <script type="module" src="src/index.js"></script>
 </body>
 </html>
