@@ -1,13 +1,9 @@
 console.clear();
 
 
-function CountdownTracker(label, value){
-
-  var el = document.createElement('span');
-
+function AnimatedNumber(el, value){
   el.className = 'flip-clock__piece';
-  el.innerHTML = '<b class="flip-clock__card card"><b class="card__top"></b><b class="card__bottom"></b><b class="card__back"><b class="card__bottom"></b></b></b>' + 
-    '<span class="flip-clock__slot">' + label + '</span>';
+  el.innerHTML = '<b class="flip-clock__card card"><b class="card__top"></b><b class="card__bottom"></b><b class="card__back"><b class="card__bottom"></b></b></b>';
 
   this.el = el;
 
@@ -16,101 +12,46 @@ function CountdownTracker(label, value){
       back = el.querySelector('.card__back'),
       backBottom = el.querySelector('.card__back .card__bottom');
 
+  top.innerText = value;
+  back.setAttribute('data-value', value);
+  bottom.setAttribute('data-value', value);
+  backBottom.setAttribute('data-value', value);
+
   this.update = function(val){
-    val = ( '0' + val ).slice(-2);
-    if ( val !== this.currentValue ) {
-      
-      if ( this.currentValue >= 0 ) {
-        back.setAttribute('data-value', this.currentValue);
-        bottom.setAttribute('data-value', this.currentValue);
-      }
-      this.currentValue = val;
-      top.innerText = this.currentValue;
-      backBottom.setAttribute('data-value', this.currentValue);
-
-      this.el.classList.remove('flip');
-      void this.el.offsetWidth;
-      this.el.classList.add('flip');
-    }
-  }
-  
-  this.update(value);
-}
-
-// Calculation adapted from https://www.sitepoint.com/build-javascript-countdown-timer-no-dependencies/
-
-function getTimeRemaining(endtime) {
-  var t = Date.parse(endtime) - Date.parse(new Date());
-  return {
-    'Total': t,
-    'Days': Math.floor(t / (1000 * 60 * 60 * 24)),
-    'Hours': Math.floor((t / (1000 * 60 * 60)) % 24),
-    'Minutes': Math.floor((t / 1000 / 60) % 60),
-    'Seconds': Math.floor((t / 1000) % 60)
-  };
-}
-
-function getTime() {
-  var t = new Date();
-  return {
-    'Total': t,
-    'Hours': t.getHours() % 12,
-    'Minutes': t.getMinutes(),
-    'Seconds': t.getSeconds()
-  };
-}
-
-function Clock(countdown,callback) {
-  
-  countdown = countdown ? new Date(Date.parse(countdown)) : false;
-  callback = callback || function(){};
-  
-  var updateFn = countdown ? getTimeRemaining : getTime;
-
-  this.el = document.createElement('div');
-  this.el.className = 'flip-clock';
-
-  var trackers = {},
-      t = updateFn(countdown),
-      key, timeinterval;
-
-  for ( key in t ){
-    if ( key === 'Total' ) { continue; }
-    trackers[key] = new CountdownTracker(key, t[key]);
-    this.el.appendChild(trackers[key].el);
-  }
-
-  var i = 0;
-  function updateClock() {
-    timeinterval = requestAnimationFrame(updateClock);
+    if (val === this.currentValue) return
     
-    // throttle so it's not constantly updating the time.
-    if ( i++ % 10 ) { return; }
-    
-    var t = updateFn(countdown);
-    if ( t.Total < 0 ) {
-      cancelAnimationFrame(timeinterval);
-      for ( key in trackers ){
-        trackers[key].update( 0 );
-      }
-      callback();
-      return;
+    if ( this.currentValue >= 0 ) {
+      back.setAttribute('data-value', this.currentValue);
+      bottom.setAttribute('data-value', this.currentValue);
     }
-    
-    for ( key in trackers ){
-      trackers[key].update( t[key] );
-    }
-  }
+    this.currentValue = val;
+    top.innerText = this.currentValue;
+    backBottom.setAttribute('data-value', this.currentValue);
 
-  setTimeout(updateClock,500);
+    this.el.classList.remove('flip');
+    void this.el.offsetWidth;
+    this.el.classList.add('flip');
+  }
 }
 
-var deadline = new Date(Date.parse(new Date()) + 12 * 24 * 60 * 60 * 1000);
-var c = new Clock(deadline, function(){ alert('countdown complete') });
-document.body.appendChild(c.el);
 
-var clock = new Clock();
-document.body.appendChild(clock.el);
+export function hydrate(rootEL) {
+  const numberEls = rootEL.querySelectorAll('.number-container__number');
+  const animatedNumbers = [...numberEls].map((el) => {
+    const num = Number(el.innerText)
+    return new AnimatedNumber(el, num)
+  })
 
-
-export const numb = 1244
+  let val = 5
+  rootEL.querySelector('#subtract').addEventListener('click', (event) => {
+    event.preventDefault();
+    val--
+    animatedNumbers[0].update(val)
+  })
+  
+  rootEL.querySelector('#add').addEventListener('click', (event) => {
+    event.preventDefault();
+    val++
+    animatedNumbers[0].update(val)
+  })
+}
