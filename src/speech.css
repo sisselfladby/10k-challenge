@@ -1,21 +1,25 @@
 .speech__container {
     padding: 1rem 0;
+    display: flex;
+    justify-content: center;
 }
 
 .speech__button:focus {
     outline: none;
-    box-shadow: 0 0 0 3px blue;
+    box-shadow: 0 0 0 3px black;
 }
 
 .speech__button {
     border-radius: 75%;
     background-color: white;
-    color: #808080;
+    color: black;
     text-align: center;
     font-size: 1.5rem;
     text-decoration: none;
-
+    padding: 1rem;
     transition: transform 0.25s;
+    border: none;
+    cursor: pointer;
 }
 
 .speech__button:hover,
