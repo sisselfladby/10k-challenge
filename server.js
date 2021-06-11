@@ -44,6 +44,7 @@ function serveHtml(count) {
   </div>
   <div id="speech-button-container" class="speech__container"></div>
   </main>
+  <script id="data" type="application/json">{"count": ${number}}</script>
   <script type="module" src="src/index.js"></script>
 </body>
 </html>
