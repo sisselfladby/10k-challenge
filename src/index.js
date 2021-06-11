@@ -16,11 +16,11 @@ function importCSS(href) {
 let {count} = JSON.parse(document.getElementById('data').textContent);
 
 function getNumber() {
-  console.log(count);
   return count
 }
 
 function setNumber(newNumber) {
+  window.history.pushState({}, '', `/${newNumber}`);
   count = newNumber
 }
 
@@ -42,7 +42,6 @@ if (window.speechSynthesis) {
     import('/src/speech.js'),
     importCSS('./src/speech.css')
   ]).then(([speechModule]) => {
-    console.log(speechModule);
     speechModule.initialize(getNumber)
   })
 }
