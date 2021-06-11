@@ -30,10 +30,8 @@ Promise.all([
 ])
   .then(([module]) => {
     const counterEl = document.getElementById('counter')
-    console.log(module, counterEl)
-
     if (counterEl) {
-      module.hydrate(counterEl)
+      module.initialize(counterEl, getNumber(), setNumber);
     }
   });
 
