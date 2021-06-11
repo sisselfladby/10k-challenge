@@ -41,6 +41,7 @@ function serveHtml(count) {
     <span class="visually-hidden">Legg til</span>
   </a>
   </main>
+  <div id="speech-button-container"></div>
   <script type="module" src="src/index.js"></script>
 </body>
 </html>

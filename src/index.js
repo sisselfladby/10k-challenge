@@ -8,7 +8,7 @@ function importCSS(href) {
   return new Promise((resolve, reject) => {
     link.onload = resolve
     link.onerror = reject
-    
+
     document.head.appendChild(link);
   })
 }
@@ -20,3 +20,10 @@ Promise.all([
   .then(([module]) => {
     console.log(module)
   });
+
+if (window.speechSynthesis) {
+  const speechModule = await import('/src/speech.js')
+  console.log("hei")
+  console.log(window.speechSynthesis)
+  console.log(window.speechSynthesis.getVoices())
+}
