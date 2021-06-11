@@ -15,10 +15,15 @@ function importCSS(href) {
 
 Promise.all([
   import('/src/interactive.js'),
-  importCSS('./src/interactive.js')
+  importCSS('./src/interactive.css')
 ])
   .then(([module]) => {
-    console.log(module)
+    const counterEl = document.getElementById('counter')
+    console.log(module, counterEl)
+
+    if (counterEl) {
+      module.hydrate(counterEl)
+    }
   });
 
 if (window.speechSynthesis) {

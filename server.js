@@ -24,8 +24,8 @@ function serveHtml(count) {
 </head>
 
 <body>
-<main>
-  <a class="control" href="/${number - 1}">
+<main id="counter">
+  <a id="subtract" class="control" href="/${number - 1}">
     -
     <span class="visually-hidden">Trekk fra</span>
   </a>
@@ -36,7 +36,7 @@ function serveHtml(count) {
     ).join('')}
   </div>
 
-  <a class="control" href="/${number + 1}">
+  <a id="add" class="control" href="/${number + 1}">
     +
     <span class="visually-hidden">Legg til</span>
   </a>
