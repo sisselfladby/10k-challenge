@@ -4,9 +4,10 @@ import sirv from 'sirv'
 const app = new App()
 
 app
-    .use('/', sirv('src'))
-    .get('/:count', (req, res) => res.send(serveHtml(req.params.count)))
-    .listen(3000)
+  .use('/src', sirv('src'))
+  .get('/', (req, res) => res.redirect('/1', 302))
+  .get('/:count', (req, res) => res.send(serveHtml(req.params.count)))
+  .listen(3000)
 
 
 function serveHtml(count) {
@@ -16,7 +17,7 @@ function serveHtml(count) {
 <html lang="no">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./src/index.css">
   <title>1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 og 11 - 12</title>
 </head>
 
