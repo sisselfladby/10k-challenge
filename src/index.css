@@ -1,4 +1,29 @@
 body {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace;
   background-color: #FBAB7E;
   background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+}
+
+
+.number-container {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  perspective-origin: 50% 50%;
+  perspective: 18rem;
+  background-color: white;  
+  border-radius: 0.25rem;
+  box-shadow: 0 0.75rem 0.75rem -0.75rem grey;
+
+  font-size: 4rem;
+  text-align: center;
+  line-height: 6rem;
+}
+
+.number-container + .number-container { 
+  margin-left: 0.5rem;
 }
